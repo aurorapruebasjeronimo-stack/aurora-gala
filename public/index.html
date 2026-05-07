@@ -790,7 +790,8 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 2rem;
+      padding: 4vw;
+      gap: 3vh;
     }
 
     #proj-overlay.show {
@@ -804,11 +805,12 @@
       background: transparent;
       border: 1px solid rgba(45, 125, 70, .2);
       border-radius: 6px;
-      color: rgba(45, 125, 70, .5);
-      padding: .4rem .7rem;
-      font-size: .76rem;
+      color: rgba(45, 125, 70, .4);
+      padding: .4rem .9rem;
+      font-size: .78rem;
       cursor: pointer;
       font-family: 'Raleway', sans-serif;
+      letter-spacing: .05em;
       transition: all .2s;
     }
 
@@ -817,47 +819,65 @@
       color: #2d7d46;
     }
 
+    .proj-logo img {
+      height: clamp(60px, 8vh, 100px);
+      width: auto;
+      object-fit: contain;
+    }
+
+    .proj-divider {
+      width: clamp(40px, 6vw, 80px);
+      height: 2px;
+      background: linear-gradient(90deg, #8cb83a, #2d7d46, #4a9fba);
+      border-radius: 2px;
+      opacity: .5;
+    }
+
+    .proj-counter-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1vh;
+    }
+
     #proj-n {
       font-family: 'Raleway', sans-serif;
-      font-size: clamp(5rem, 15vw, 9rem);
-      font-weight: 700;
+      font-size: clamp(6rem, 22vw, 18rem);
+      font-weight: 800;
       color: #2d7d46;
-      line-height: 1;
-      margin-bottom: .5rem;
+      line-height: .9;
+      letter-spacing: -.02em;
       transition: transform .4s ease;
     }
 
     #proj-n.bump {
-      animation: bump .4s ease;
+      animation: bump .5s cubic-bezier(.36,.07,.19,.97);
     }
 
     @keyframes bump {
-      0% {
-        transform: scale(1)
-      }
-
-      50% {
-        transform: scale(1.06)
-      }
-
-      100% {
-        transform: scale(1)
-      }
+      0%  { transform: scale(1) }
+      30% { transform: scale(1.08) }
+      60% { transform: scale(.97) }
+      100%{ transform: scale(1) }
     }
 
     .proj-lbl {
-      font-size: clamp(.85rem, 2vw, 1.1rem);
-      color: #8cb83a;
-      margin-bottom: 3rem;
-      letter-spacing: .04em;
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      color: #3a3a3a;
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
 
     #proj-phrase {
       font-family: 'Raleway', sans-serif;
       font-style: italic;
-      font-size: clamp(1rem, 3vw, 1.6rem);
+      font-weight: 300;
+      font-size: clamp(1.1rem, 3vw, 2rem);
       color: #8cb83a;
-      transition: opacity .5s;
+      letter-spacing: .02em;
+      transition: opacity .6s ease;
     }
 
     /* ── Scrollable screen centers ──────────────────────── */
@@ -1080,8 +1100,20 @@
   <!-- Projection -->
   <div id="proj-overlay">
     <button class="proj-close" id="proj-close">Cerrar</button>
-    <div id="proj-n">0</div>
-    <div class="proj-lbl">personas han enviado su mensaje esta noche</div>
+
+    <div class="proj-logo">
+      <img src="logo.jpg" alt="Aurora">
+    </div>
+
+    <div class="proj-divider"></div>
+
+    <div class="proj-counter-wrap">
+      <div id="proj-n">0</div>
+      <div class="proj-lbl">personas han enviado su mensaje esta noche</div>
+    </div>
+
+    <div class="proj-divider"></div>
+
     <div id="proj-phrase">¿Aún no has enviado el tuyo?</div>
   </div>
 
