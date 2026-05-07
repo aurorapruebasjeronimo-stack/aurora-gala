@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Aurora · Gala de Reconocimiento 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --green: #2d7d46;
+      --green-light: #3d9956;
+      --green-dim: rgba(45, 125, 70, 0.18);
+      --yellow: #f0b429;
+      --blue: #4a9fba;
+      --orange: #d4742a;
+      --text: #3a3a3a;
+      --text-dim: #6a6a6a;
+      --text-muted: #ababab;
+      --card-bg: rgba(45, 125, 70, 0.04);
+      --card-border: rgba(45, 125, 70, 0.15);
+      --wa: #25D366;
+      --error: rgba(180, 70, 70, 0.9);
+
+      /* alias so existing var(--gold) refs still funcionan */
+      --gold: var(--green);
+      --gold-light: var(--green-light);
+      --gold-dim: var(--green-dim);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* ── Screens ───────────────────────────────────────── */
+    .app {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1.5rem 6rem;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .screen.exit {
+      opacity: 0;
+      transform: translateY(-18px);
+    }
+
+    .inner {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    /* ── Type ──────────────────────────────────────────── */
+    .logo {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .logo img {
+      height: 110px;
+      width: auto;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    .logo small {
+      display: block;
+      font-family: 'Raleway', sans-serif;
+      font-size: .65rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: .6rem;
+    }
+
+    .eyebrow {
+      font-size: .68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .9rem;
+    }
+
+    h1,
+    h2 {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: .9rem;
+      font-size: clamp(1.75rem, 5vw, 2.6rem);
+    }
+
+    h1 em,
+    h2 em {
+      font-style: italic;
+      color: var(--orange);
+    }
+
+    .sub {
+      font-size: .875rem;
+      line-height: 1.75;
+      color: var(--text-dim);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Form ──────────────────────────────────────────── */
+    label.field {
+      display: block;
+      font-size: .75rem;
+      letter-spacing: .07em;
+      color: var(--text-dim);
+      margin-bottom: .6rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 164px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-size: .94rem;
+      line-height: 1.75;
+      resize: none;
+      outline: none;
+      transition: border-color .3s;
+    }
+
+    textarea:focus {
+      border-color: var(--gold-dim);
+    }
+
+    textarea::placeholder {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .char-ct {
+      text-align: right;
+      font-size: .72rem;
+      color: var(--text-muted);
+      margin: .45rem 0 1.4rem;
+    }
+
+    /* ── Buttons ───────────────────────────────────────── */
+    .btn {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Raleway', sans-serif;
+      font-size: .88rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: background .2s, transform .1s, color .2s;
+      margin-bottom: .85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+
+    .btn:active {
+      transform: scale(.98);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+    }
+
+    .btn-wa {
+      background: var(--wa);
+      color: #fff;
+    }
+
+    .btn-wa:hover {
+      background: #1fbd5a;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-dim);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      padding: .65rem 1rem;
+      font-weight: 400;
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+    }
+
+    /* ── Message card ──────────────────────────────────── */
+    .msg-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--gold);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1.5rem;
+      font-size: .93rem;
+      line-height: 1.8;
+      color: var(--text);
+      min-height: 72px;
+    }
+
+    /* ── AI badge ──────────────────────────────────────── */
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: rgba(74, 159, 186, .08);
+      border: 1px solid rgba(74, 159, 186, .3);
+      border-radius: 100px;
+      padding: .32rem .8rem;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .pulse {
+      width: 6px;
+      height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .35;
+        transform: scale(.65)
+      }
+    }
+
+    /* ── Loading dots ──────────────────────────────────── */
+    .dots {
+      display: flex;
+      gap: .4rem;
+      justify-content: center;
+      margin: 2.5rem 0;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: dotpulse 1.4s ease-in-out infinite;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: .2s
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: .4s
+    }
+
+    @keyframes dotpulse {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(.45);
+        opacity: .25
+      }
+
+      40% {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    /* ── Toggle group ──────────────────────────────────── */
+    .toggle-group {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tog {
+      flex: 1;
+      padding: .7rem .5rem;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--text-dim);
+      font-family: 'Raleway', sans-serif;
+      font-size: .78rem;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center;
+    }
+
+    .tog.on {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(196, 168, 130, .07);
+    }
+
+    /* ── Phone input ───────────────────────────────────── */
+    .phone-wrap {
+      display: flex;
+      gap: 0;
+      margin-bottom: .5rem;
+    }
+
+    .prefix {
+      background: rgba(196, 168, 130, .09);
+      border: 1px solid var(--card-border);
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      padding: .85rem 1rem;
+      color: var(--gold);
+      font-size: .9rem;
+      font-family: 'Raleway', sans-serif;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    input[type=tel] {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 0 8px 8px 0;
+      padding: .85rem 1rem;
+      color: var(--text);
+      font-size: .94rem;
+      font-family: 'Raleway', sans-serif;
+      outline: none;
+      transition: border-color .3s;
+      width: 100%;
+    }
+
+    input[type=tel]:focus {
+      border-color: var(--gold-dim);
+    }
+
+    input[type=tel]::placeholder {
+      color: var(--text-muted);
+    }
+
+    .field-err {
+      font-size: .76rem;
+      color: var(--error);
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .field-err.show {
+      display: block;
+    }
+
+    /* ── Privacy note ──────────────────────────────────── */
+    .privacy {
+      display: flex;
+      gap: .5rem;
+      font-size: .76rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+      align-items: flex-start;
+    }
+
+    .privacy svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── State icon circle ─────────────────────────────── */
+    .state-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1.5rem;
+      border: 1px solid var(--green-dim);
+      border-radius: 50%;
+      background: rgba(45, 125, 70, .06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--green);
+    }
+
+    /* ── Counter ───────────────────────────────────────── */
+    .counter {
+      text-align: center;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .counter-n {
+      font-family: 'Raleway', sans-serif;
+      font-size: 3.2rem;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: .25rem;
+    }
+
+    .counter-l {
+      font-size: .82rem;
+      color: var(--text-dim);
+    }
+
+    /* ── Divider ───────────────────────────────────────── */
+    hr {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, .07);
+      margin: 1.5rem 0;
+    }
+
+    /* ── Admin trigger ─────────────────────────────────── */
+    #admin-trigger {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 90;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: .68rem;
+      cursor: pointer;
+      padding: .45rem;
+      font-family: 'Raleway', sans-serif;
+      letter-spacing: .05em;
+      transition: color .2s;
+    }
+
+    #admin-trigger:hover {
+      color: var(--text-dim);
+    }
+
+    /* ── Admin overlay ─────────────────────────────────── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: #060504;
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    /* Auth */
+    .auth-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      gap: .75rem;
+    }
+
+    .auth-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.15rem;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: .5rem;
+    }
+
+    .auth-sub {
+      font-size: .78rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: .25rem;
+    }
+
+    input[type=password] {
+      width: 100%;
+      max-width: 280px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: .85rem 1rem;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-size: .94rem;
+      outline: none;
+      text-align: center;
+      letter-spacing: .3em;
+      transition: border-color .3s;
+    }
+
+    input[type=password]:focus {
+      border-color: var(--gold-dim);
+    }
+
+    .auth-err {
+      font-size: .76rem;
+      color: var(--error);
+      min-height: 1.1em;
+      text-align: center;
+    }
+
+    .auth-btn {
+      width: 100%;
+      max-width: 280px;
+      padding: .85rem;
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Raleway', sans-serif;
+      font-size: .88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .auth-btn:hover {
+      background: var(--gold-light);
+    }
+
+    .auth-cancel {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: .78rem;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    /* Dashboard */
+    .dash-inner {
+      max-width: 620px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .dash-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .btn-close-dash {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      color: var(--text-dim);
+      padding: .45rem .9rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: .78rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .btn-close-dash:hover {
+      border-color: var(--gold-dim);
+      color: var(--text);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .metric {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.1rem;
+    }
+
+    .metric-n {
+      font-family: 'Raleway', sans-serif;
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: .2rem;
+    }
+
+    .metric-l {
+      font-size: .72rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .prog-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: .76rem;
+      color: var(--text-dim);
+      margin-bottom: .45rem;
+    }
+
+    .prog-bg {
+      background: rgba(0, 0, 0, .06);
+      border-radius: 100px;
+      height: 5px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .prog-fill {
+      background: var(--gold);
+      height: 100%;
+      border-radius: 100px;
+      transition: width .5s ease;
+    }
+
+    .section-h {
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .7rem;
+    }
+
+    .log-list {
+      list-style: none;
+    }
+
+    .log-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .55rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+      font-size: .8rem;
+    }
+
+    .log-row:last-child {
+      border-bottom: none;
+    }
+
+    .log-text {
+      color: var(--text-dim);
+    }
+
+    .log-time {
+      color: var(--text-muted);
+      font-size: .72rem;
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+
+    .log-empty {
+      color: var(--text-muted);
+      font-size: .8rem;
+      padding: .55rem 0;
+    }
+
+    .btn-proj {
+      width: 100%;
+      padding: .95rem;
+      background: rgba(196, 168, 130, .08);
+      border: 1px solid var(--gold-dim);
+      border-radius: 8px;
+      color: var(--gold);
+      font-family: 'Raleway', sans-serif;
+      font-size: .88rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .btn-proj:hover {
+      background: rgba(196, 168, 130, .14);
+    }
+
+    /* ── Projection ────────────────────────────────────── */
+    #proj-overlay {
+      position: fixed;
+      inset: 0;
+      background: #040402;
+      z-index: 300;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    #proj-overlay.show {
+      display: flex;
+    }
+
+    .proj-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 6px;
+      color: rgba(255, 255, 255, .3);
+      padding: .4rem .7rem;
+      font-size: .76rem;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      transition: all .2s;
+    }
+
+    .proj-close:hover {
+      border-color: rgba(255, 255, 255, .3);
+      color: rgba(255, 255, 255, .7);
+    }
+
+    #proj-n {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(5rem, 15vw, 9rem);
+      font-weight: 400;
+      color: #f0b429;
+      line-height: 1;
+      margin-bottom: .5rem;
+      transition: transform .4s ease;
+    }
+
+    #proj-n.bump {
+      animation: bump .4s ease;
+    }
+
+    @keyframes bump {
+      0% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.06)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    .proj-lbl {
+      font-size: clamp(.85rem, 2vw, 1.1rem);
+      color: rgba(240, 180, 41, .5);
+      margin-bottom: 3rem;
+      letter-spacing: .04em;
+    }
+
+    #proj-phrase {
+      font-family: 'Raleway', sans-serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      color: rgba(255, 255, 255, .28);
+      transition: opacity .5s;
+    }
+
+    /* ── Scrollable screen centers ──────────────────────── */
+    #screen-5 .inner {
+      text-align: center;
+    }
+
+    @media(max-height:700px) {
+      .screen {
+        padding-top: 1.5rem;
+      }
+
+      .logo {
+        margin-bottom: 1.5rem;
+      }
+
+      h1,
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app" id="app">
+
+    <!-- ──────────── SCREEN 1 ──────────── -->
+    <div class="screen active" id="screen-1">
+      <div class="inner">
+        <div class="logo">
+          <img src="logo.jpg" alt="Aurora">
+          <small>Gala de Reconocimiento 2025</small>
+        </div>
+
+        <h1>Si pudieras escribirle algo a tu mamá, o a quien te ha amado como si lo fuera, ¿qué le dirías?</h1>
+        <p class="sub">No tienes que recordar. Tienes que sentir. Escribe lo primero que venga. No hay respuestas
+          incorrectas.</p>
+
+        <label class="field" for="user-msg">Escríbeselo como si estuviera enfrente de ella </label>
+        <textarea id="user-msg" maxlength="800"
+          placeholder="Ej: Te amo. Eres mi mayor bendición y lo mejor que me ha pasado en la vida. Hoy quiero que lo sepas."></textarea>
+        <div class="char-ct"><span id="char-n">0</span> / 800</div>
+
+        <button class="btn btn-gold" id="s1-next">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- ──────────── SCREEN 2 ──────────── -->
+    <div class="screen" id="screen-2">
+      <div class="inner">
+        <div class="ai-badge">
+          <div class="pulse"></div>Versión mejorada por IA
+        </div>
+
+        <h2>Lo que querías decir, dicho como merece.</h2>
+        <p class="sub">Tomamos lo que escribiste y lo transformamos en algo que ella pueda guardar para siempre. Tú
+          eliges cuál enviar.</p>
+
+        <div class="dots" id="s2-loading">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+
+        <div id="s2-content" style="display:none">
+          <div class="msg-card" id="s2-ai-text"></div>
+
+          <div class="toggle-group">
+            <button class="tog on" id="tog-ai">Usar la versión mejorada</button>
+            <button class="tog" id="tog-orig">Usar mi mensaje original</button>
+          </div>
+
+          <button class="btn btn-gold" id="s2-next">Continuar con este mensaje</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──────────── SCREEN 3 ──────────── -->
+    <div class="screen" id="screen-3">
+      <div class="inner">
+        <div class="eyebrow">Hay cosas que merecen ser dichas</div>
+        <h2>Este mensaje podría cambiar su día.</h2>
+        <p class="sub">Si nos das su número, lo único que tendrás que hacer es tocar un botón. Nosotros nos encargamos
+          del resto.</p>
+
+        <div class="msg-card" id="s3-preview"></div>
+
+        <button class="btn btn-gold" id="s3-send">Sí, quiero que llegue</button>
+      </div>
+    </div>
+
+    <!-- ──────────── SCREEN 4 ──────────── -->
+    <div class="screen" id="screen-4">
+      <div class="inner">
+        <div class="eyebrow">Un último paso</div>
+        <h2>¿A quién le llega esto?</h2>
+        <p class="sub">No importa si es tu mamá, tu abuela, tu tía, o quien ha sido tu mamá sin serlo. Escribe su
+          número.</p>
+
+        <div class="phone-wrap">
+          <div class="prefix">+57</div>
+          <input type="tel" id="phone" placeholder="3 00 000 00 00" maxlength="12" inputmode="numeric">
+        </div>
+        <div class="field-err" id="phone-err">Por favor ingresa un número válido de 10 dígitos</div>
+
+        <div class="privacy">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1L2 3.5V7C2 9.8 4.2 12.4 7 13C9.8 12.4 12 9.8 12 7V3.5L7 1Z" stroke="#ababab"
+              stroke-width="1.2" />
+            <path d="M5 7L6.5 8.5L9 5.5" stroke="#ababab" stroke-width="1.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          El número no se guarda. Solo abre WhatsApp con el mensaje listo. Tú decides si tocas 'Enviar'.
+        </div>
+
+        <button class="btn btn-wa" id="s4-wa">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Abrir en WhatsApp y enviar
+        </button>
+        <button class="btn btn-ghost" id="s4-cancel">Cancelar y guardar solo para mí</button>
+      </div>
+    </div>
+
+    <!-- ──────────── SCREEN 5 ──────────── -->
+    <div class="screen" id="screen-5">
+      <div class="inner">
+        <div class="state-icon" id="s5-icon"></div>
+        <div class="eyebrow" id="s5-eyebrow" style="text-align:center"></div>
+        <h2 id="s5-title"></h2>
+        <p class="sub" id="s5-sub"></p>
+
+        <div class="counter">
+          <div class="counter-n" id="s5-count">0</div>
+          <div class="counter-l">personas han enviado su mensaje esta noche</div>
+        </div>
+
+        <button class="btn btn-gold" id="s5-restart">Escribir otro mensaje</button>
+      </div>
+    </div>
+
+  </div><!-- /app -->
+
+  <!-- Admin trigger -->
+  <button id="admin-trigger">⊹ Admin</button>
+
+  <!-- Admin overlay -->
+  <div class="overlay" id="admin-overlay">
+
+    <!-- Auth -->
+    <div class="auth-wrap" id="admin-auth">
+      <p class="auth-title">Panel de administración</p>
+      <p class="auth-sub">Contraseña requerida</p>
+      <input type="password" id="auth-pwd" placeholder="••••••••" autocomplete="off">
+      <div class="auth-err" id="auth-err"></div>
+      <button class="auth-btn" id="auth-submit">Entrar</button>
+      <button class="auth-cancel" id="auth-cancel">Cancelar</button>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dash-inner" id="admin-dash" style="display:none">
+      <div class="dash-header">
+        <span class="dash-title">Panel de administración</span>
+        <button class="btn-close-dash" id="dash-close">Cerrar</button>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-n" id="m-written">0</div>
+          <div class="metric-l">Mensajes escritos</div>
+        </div>
+        <div class="metric">
+          <div class="metric-n" id="m-sent">0</div>
+          <div class="metric-l">Enviados por WhatsApp</div>
+        </div>
+        <div class="metric">
+          <div class="metric-n" id="m-ai">0</div>
+          <div class="metric-l">Usaron versión IA</div>
+        </div>
+        <div class="metric">
+          <div class="metric-n" id="m-saved">0</div>
+          <div class="metric-l">Guardados para ellos</div>
+        </div>
+      </div>
+
+      <div class="prog-row">
+        <span>Tasa de envío</span>
+        <span id="m-rate">0%</span>
+      </div>
+      <div class="prog-bg">
+        <div class="prog-fill" id="m-bar" style="width:0%"></div>
+      </div>
+
+      <hr>
+
+      <div class="section-h">Últimos eventos</div>
+      <ul class="log-list" id="evt-log"></ul>
+
+      <hr>
+
+      <div class="section-h" style="margin-bottom:.7rem">Compartir en pantalla grande</div>
+      <button class="btn-proj" id="btn-proj">Abrir vista de proyección</button>
+    </div>
+  </div>
+
+  <!-- Projection -->
+  <div id="proj-overlay">
+    <button class="proj-close" id="proj-close">Cerrar</button>
+    <div id="proj-n">0</div>
+    <div class="proj-lbl">personas han enviado su mensaje esta noche</div>
+    <div id="proj-phrase">¿Aún no has enviado el tuyo?</div>
+  </div>
+
+  <script>
+    // ─── State ────────────────────────────────────────────────
+    const S = {
+      screen: 1,
+      userMsg: '',
+      aiMsg: '',
+      useAI: true,
+      finalMsg: '',
+      authed: false,
+    };
+
+    const PASS = 'aurora2025';
+    const PREFIX = 'Sé que hoy no es el día de la madre, pero pronto lo es y quiero ser la primera en decirte esto: ';
+    const PHRASES = [
+      '¿Aún no has enviado el tuyo?',
+      'Cada mensaje importa.',
+      'Ella está esperando leerlo.',
+      'Hoy es el momento.'
+    ];
+
+    // ─── Navigation ───────────────────────────────────────────
+    function goTo(n) {
+      const cur = document.getElementById(`screen-${S.screen}`);
+      const nxt = document.getElementById(`screen-${n}`);
+      cur.classList.add('exit');
+      cur.classList.remove('active');
+      setTimeout(() => { cur.classList.remove('exit'); }, 600);
+      setTimeout(() => { nxt.classList.add('active'); nxt.scrollTop = 0; }, 120);
+      S.screen = n;
+    }
+
+    // ─── API helpers ──────────────────────────────────────────
+    async function postEvent(type) {
+      try {
+        await fetch('/api/event', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type })
+        });
+      } catch { }
+    }
+
+    async function getStats() {
+      try {
+        const r = await fetch('/api/stats');
+        return await r.json();
+      } catch {
+        return { totalWritten: 0, totalSent: 0, totalAI: 0, totalSaved: 0, log: [] };
+      }
+    }
+
+    // ─── Typewriter ───────────────────────────────────────────
+    function typeWrite(el, text, speed = 16) {
+      el.textContent = '';
+      let i = 0;
+      const tick = () => {
+        if (i < text.length) { el.textContent += text[i++]; setTimeout(tick, speed); }
+      };
+      tick();
+    }
+
+    // ─── Screen 1 ─────────────────────────────────────────────
+    const msgEl = document.getElementById('user-msg');
+    const charEl = document.getElementById('char-n');
+
+    msgEl.addEventListener('input', () => { charEl.textContent = msgEl.value.length; });
+
+    document.getElementById('s1-next').addEventListener('click', () => {
+      const txt = msgEl.value.trim();
+      if (!txt) {
+        msgEl.style.borderColor = 'rgba(200,100,100,.5)';
+        msgEl.focus();
+        setTimeout(() => { msgEl.style.borderColor = ''; }, 2200);
+        return;
+      }
+      S.userMsg = txt;
+      S.finalMsg = PREFIX + txt;
+      document.getElementById('s3-preview').textContent = S.finalMsg;
+      goTo(3);
+      postEvent('written');
+    });
+
+
+    // ─── Screen 2 ─────────────────────────────────────────────
+    document.getElementById('tog-ai').addEventListener('click', () => {
+      S.useAI = true;
+      document.getElementById('tog-ai').classList.add('on');
+      document.getElementById('tog-orig').classList.remove('on');
+      typeWrite(document.getElementById('s2-ai-text'), S.aiMsg);
+    });
+
+    document.getElementById('tog-orig').addEventListener('click', () => {
+      S.useAI = false;
+      document.getElementById('tog-orig').classList.add('on');
+      document.getElementById('tog-ai').classList.remove('on');
+      document.getElementById('s2-ai-text').textContent = S.userMsg;
+    });
+
+    document.getElementById('s2-next').addEventListener('click', () => {
+      S.finalMsg = S.useAI ? S.aiMsg : S.userMsg;
+      if (S.useAI) postEvent('ai_used');
+      document.getElementById('s3-preview').textContent = S.finalMsg;
+      goTo(3);
+    });
+
+    // ─── Screen 3 ─────────────────────────────────────────────
+    document.getElementById('s3-send').addEventListener('click', () => goTo(4));
+
+    // ─── Screen 4 ─────────────────────────────────────────────
+    const phoneEl = document.getElementById('phone');
+    phoneEl.addEventListener('input', () => {
+      phoneEl.value = phoneEl.value.replace(/\D/g, '');
+      document.getElementById('phone-err').classList.remove('show');
+    });
+
+    document.getElementById('s4-wa').addEventListener('click', () => {
+      const num = phoneEl.value.replace(/\D/g, '');
+      if (num.length < 10) { document.getElementById('phone-err').classList.add('show'); return; }
+      const url = `https://wa.me/57${num}?text=${encodeURIComponent(S.finalMsg)}`;
+      window.open(url, '_blank');
+      postEvent('sent');
+      setTimeout(() => showConfirm('sent'), 1200);
+    });
+
+    document.getElementById('s4-cancel').addEventListener('click', () => showConfirm('saved'));
+
+    // ─── Screen 5 ─────────────────────────────────────────────
+    async function showConfirm(type) {
+      if (type === 'saved') postEvent('saved');
+
+      const icon = document.getElementById('s5-icon');
+      const eyebrow = document.getElementById('s5-eyebrow');
+      const title = document.getElementById('s5-title');
+      const sub = document.getElementById('s5-sub');
+
+      if (type === 'sent') {
+        icon.textContent = '✦';
+        eyebrow.textContent = 'Mensaje enviado';
+        title.innerHTML = 'Acabas de hacer <em>algo que ella no va a olvidar.</em>';
+        sub.textContent = 'Un mensaje a tiempo puede cambiar un día entero. Y a veces, mucho más que eso. Gracias por no guardártelo.';
+      } else {
+        icon.textContent = '◈';
+        eyebrow.textContent = 'Lo escribiste. Eso ya importa.';
+        title.innerHTML = 'Hay mensajes que <em>cambian el día de alguien.</em>';
+        sub.textContent = 'El tuyo está listo. Si en algún momento quieres que llegue, aquí estamos. Y si no, entendemos — a veces escribirlo ya es un acto de amor.';
+      }
+
+      const stats = await getStats();
+      document.getElementById('s5-count').textContent = stats.totalSent;
+      goTo(5);
+    }
+
+    document.getElementById('s5-restart').addEventListener('click', () => {
+      msgEl.value = '';
+      charEl.textContent = '0';
+      phoneEl.value = '';
+      S.userMsg = S.aiMsg = S.finalMsg = '';
+      S.useAI = true;
+
+      document.querySelectorAll('.screen').forEach(el => el.classList.remove('active', 'exit'));
+      document.getElementById('screen-1').classList.add('active');
+      S.screen = 1;
+    });
+
+    // ─── Admin ────────────────────────────────────────────────
+    document.getElementById('admin-trigger').addEventListener('click', () => {
+      document.getElementById('admin-overlay').classList.add('show');
+      if (S.authed) {
+        openDash();
+      } else {
+        document.getElementById('admin-auth').style.display = 'flex';
+        document.getElementById('admin-dash').style.display = 'none';
+        document.getElementById('auth-pwd').value = '';
+        document.getElementById('auth-err').textContent = '';
+      }
+    });
+
+    function tryAuth() {
+      if (document.getElementById('auth-pwd').value === PASS) {
+        S.authed = true;
+        openDash();
+      } else {
+        document.getElementById('auth-err').textContent = 'Contraseña incorrecta';
+        document.getElementById('auth-pwd').value = '';
+      }
+    }
+    document.getElementById('auth-submit').addEventListener('click', tryAuth);
+    document.getElementById('auth-pwd').addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+    document.getElementById('auth-cancel').addEventListener('click', () => {
+      document.getElementById('admin-overlay').classList.remove('show');
+    });
+
+    async function openDash() {
+      document.getElementById('admin-auth').style.display = 'none';
+      document.getElementById('admin-dash').style.display = 'block';
+
+      const d = await getStats();
+      document.getElementById('m-written').textContent = d.totalWritten;
+      document.getElementById('m-sent').textContent = d.totalSent;
+      document.getElementById('m-ai').textContent = d.totalAI;
+      document.getElementById('m-saved').textContent = d.totalSaved;
+
+      const rate = d.totalWritten > 0 ? Math.round((d.totalSent / d.totalWritten) * 100) : 0;
+      document.getElementById('m-rate').textContent = `${rate}%`;
+      document.getElementById('m-bar').style.width = `${rate}%`;
+
+      const logEl = document.getElementById('evt-log');
+      if (d.log && d.log.length > 0) {
+        logEl.innerHTML = d.log.map(e =>
+          `<li class="log-row">
+        <span class="log-text">${e.text}</span>
+        <span class="log-time">${e.time}</span>
+      </li>`
+        ).join('');
+      } else {
+        logEl.innerHTML = '<li class="log-empty">Sin eventos aún</li>';
+      }
+    }
+
+    document.getElementById('dash-close').addEventListener('click', () => {
+      document.getElementById('admin-overlay').classList.remove('show');
+      // Return to screen 1 cleanly
+      document.querySelectorAll('.screen').forEach(el => el.classList.remove('active', 'exit'));
+      document.getElementById('screen-1').classList.add('active');
+      S.screen = 1;
+      msgEl.value = '';
+      charEl.textContent = '0';
+    });
+
+    // ─── Projection ───────────────────────────────────────────
+    let projPoll = null;
+    let projCycle = null;
+    let phraseIdx = 0;
+
+    document.getElementById('btn-proj').addEventListener('click', () => {
+      document.getElementById('proj-overlay').classList.add('show');
+      updateProj();
+      projPoll = setInterval(updateProj, 5000);
+      phraseIdx = 0;
+      projCycle = setInterval(cyclePhrase, 6000);
+    });
+
+    async function updateProj() {
+      const d = await getStats();
+      const el = document.getElementById('proj-n');
+      const prev = parseInt(el.textContent, 10);
+      el.textContent = d.totalSent;
+      if (d.totalSent !== prev) { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+    }
+
+    function cyclePhrase() {
+      phraseIdx = (phraseIdx + 1) % PHRASES.length;
+      const el = document.getElementById('proj-phrase');
+      el.style.opacity = '0';
+      setTimeout(() => { el.textContent = PHRASES[phraseIdx]; el.style.opacity = '1'; }, 500);
+    }
+
+    document.getElementById('proj-close').addEventListener('click', () => {
+      document.getElementById('proj-overlay').classList.remove('show');
+      clearInterval(projPoll);
+      clearInterval(projCycle);
+    });
+  </script>
+</body>
+
+</html>
