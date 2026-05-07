@@ -186,6 +186,52 @@
       margin: .45rem 0 1.4rem;
     }
 
+    /* ── Suggestions ──────────────────────────────────── */
+    .suggestions-wrap {
+      margin-bottom: 1.5rem;
+    }
+
+    .suggestions-title {
+      font-size: .75rem;
+      color: var(--green);
+      margin-bottom: .75rem;
+      line-height: 1.5;
+      letter-spacing: .01em;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .sug {
+      background: rgba(45, 125, 70, .05);
+      border: 1px solid rgba(45, 125, 70, .2);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      text-align: left;
+      font-family: 'Raleway', sans-serif;
+      font-size: .82rem;
+      color: var(--text-dim);
+      cursor: pointer;
+      line-height: 1.5;
+      transition: all .2s;
+      font-style: italic;
+    }
+
+    .sug:hover {
+      background: rgba(45, 125, 70, .1);
+      border-color: var(--green);
+      color: var(--text);
+    }
+
+    .sug.selected {
+      background: rgba(45, 125, 70, .1);
+      border-color: var(--green);
+      color: var(--green);
+    }
+
     /* ── Buttons ───────────────────────────────────────── */
     .btn {
       width: 100%;
@@ -851,10 +897,20 @@
         <p class="sub">No tienes que recordar. Tienes que sentir. Escribe lo primero que venga. No hay respuestas
           incorrectas.</p>
 
-        <label class="field" for="user-msg">Escríbeselo como si estuviera enfrente de ella </label>
+        <label class="field" for="user-msg">Escríbeselo como si estuviera enfrente de ella</label>
         <textarea id="user-msg" maxlength="800"
           placeholder="Ej: Te amo. Eres mi mayor bendición y lo mejor que me ha pasado en la vida. Hoy quiero que lo sepas."></textarea>
         <div class="char-ct"><span id="char-n">0</span> / 800</div>
+
+        <div class="suggestions-wrap">
+          <p class="suggestions-title">Escogimos estos mensajes que te podrían inspirar — tócalos y hazlos tuyos</p>
+          <div class="suggestions">
+            <button class="sug" data-msg="Gracias por quedarte cuando yo no sabía que te necesitaba. Te amo más de lo que las palabras me alcanzan.">Gracias por quedarte cuando yo no sabía que te necesitaba…</button>
+            <button class="sug" data-msg="Eres la razón por la que sé lo que es el amor. Hoy y siempre, gracias por existir en mi vida.">Eres la razón por la que sé lo que es el amor…</button>
+            <button class="sug" data-msg="No existe forma de devolverte todo lo que me has dado. Pero quiero que sepas que lo recuerdo todo, y que te amo.">No existe forma de devolverte todo lo que me has dado…</button>
+            <button class="sug" data-msg="Me enseñaste a caminar, y sin saberlo, también me enseñaste a levantarme. Gracias por todo lo que eres.">Me enseñaste a caminar, y sin saberlo, a levantarme…</button>
+          </div>
+        </div>
 
         <button class="btn btn-gold" id="s1-next">Siguiente</button>
       </div>
@@ -1094,7 +1150,22 @@
     const msgEl = document.getElementById('user-msg');
     const charEl = document.getElementById('char-n');
 
-    msgEl.addEventListener('input', () => { charEl.textContent = msgEl.value.length; });
+    msgEl.addEventListener('input', () => {
+      charEl.textContent = msgEl.value.length;
+      document.querySelectorAll('.sug').forEach(b => b.classList.remove('selected'));
+    });
+
+    document.querySelectorAll('.sug').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const msg = btn.dataset.msg;
+        msgEl.value = msg;
+        charEl.textContent = msg.length;
+        document.querySelectorAll('.sug').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        msgEl.focus();
+        msgEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
 
     document.getElementById('s1-next').addEventListener('click', () => {
       const txt = msgEl.value.trim();
