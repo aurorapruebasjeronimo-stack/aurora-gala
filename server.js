@@ -94,5 +94,5 @@ REGLAS:
 });
 
 app.listen(PORT, () => {
-  console.log(`\n✦ Aurora Gala 2025 corriendo en http://localhost:${PORT}\n`);
+  console.log(`\n✦ Aurora Gala 2026 corriendo en http://localhost:${PORT}\n`);
 });
