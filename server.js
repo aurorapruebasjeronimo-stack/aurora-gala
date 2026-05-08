@@ -56,6 +56,11 @@ app.post('/api/event', (req, res) => {
   res.json({ ok: true });
 });
 
+app.post('/api/reset', (req, res) => {
+  writeData({ totalWritten: 0, totalSent: 0, totalAI: 0, totalSaved: 0, log: [] });
+  res.json({ ok: true });
+});
+
 app.post('/api/enhance', async (req, res) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: 'No message provided' });
