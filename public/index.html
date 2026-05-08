@@ -1357,12 +1357,12 @@
       const sub = document.getElementById('s5-sub');
 
       if (type === 'sent') {
-        icon.textContent = '✦';
+        if (icon) icon.textContent = '✦';
         eyebrow.textContent = 'Mensaje enviado';
         title.innerHTML = 'Acabas de hacer <em>algo que ella no va a olvidar.</em>';
         sub.textContent = 'Un mensaje a tiempo puede cambiar un día entero. Y a veces, mucho más que eso. Gracias por no guardártelo.';
       } else {
-        icon.textContent = '◈';
+        if (icon) icon.textContent = '◈';
         eyebrow.textContent = 'Lo escribiste. Eso ya importa.';
         title.innerHTML = 'Hay mensajes que <em>cambian el día de alguien.</em>';
         sub.textContent = 'El tuyo está listo. Si en algún momento quieres que llegue, aquí estamos. Y si no, entendemos — a veces escribirlo ya es un acto de amor.';
