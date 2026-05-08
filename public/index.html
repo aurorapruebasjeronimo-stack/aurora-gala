@@ -186,6 +186,16 @@
       margin: .45rem 0 1.4rem;
     }
 
+    /* ── Alive note ───────────────────────────────────── */
+    .alive-note {
+      font-size: .78rem;
+      color: var(--green);
+      font-style: italic;
+      margin-top: -.75rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: .02em;
+    }
+
     /* ── Suggestions ──────────────────────────────────── */
     .suggestions-wrap {
       margin-bottom: 1.5rem;
@@ -201,23 +211,35 @@
 
     .suggestions {
       display: flex;
-      flex-direction: column;
-      gap: .5rem;
+      gap: .75rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: .5rem;
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
     }
+
+    .suggestions::-webkit-scrollbar { display: none; }
 
     .sug {
       background: rgba(45, 125, 70, .05);
       border: 1px solid rgba(45, 125, 70, .2);
-      border-radius: 8px;
-      padding: .75rem 1rem;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
       text-align: left;
       font-family: 'Raleway', sans-serif;
-      font-size: .82rem;
+      font-size: .84rem;
       color: var(--text-dim);
       cursor: pointer;
-      line-height: 1.5;
+      line-height: 1.65;
       transition: all .2s;
       font-style: italic;
+      flex: 0 0 78vw;
+      max-width: 320px;
+      scroll-snap-align: start;
+      white-space: normal;
     }
 
     .sug:hover {
@@ -820,7 +842,7 @@
     }
 
     .proj-logo img {
-      height: clamp(60px, 8vh, 100px);
+      height: clamp(80px, 12vh, 140px);
       width: auto;
       object-fit: contain;
     }
@@ -914,8 +936,8 @@
         </div>
 
         <h1>Si pudieras escribirle algo a tu mamá, o a quien te ha amado como si lo fuera, ¿qué le dirías?</h1>
-        <p class="sub">No tienes que recordar. Tienes que sentir. Escribe lo primero que venga. No hay respuestas
-          incorrectas.</p>
+        <p class="sub">No tienes que recordar. Tienes que sentir. Escribe lo primero que venga. No hay respuestas incorrectas.</p>
+        <p class="alive-note">Todavía estás a tiempo de decírselo.</p>
 
         <label class="field" for="user-msg">Escríbeselo como si estuviera enfrente de ella</label>
         <textarea id="user-msg" maxlength="800"
@@ -925,10 +947,10 @@
         <div class="suggestions-wrap">
           <p class="suggestions-title">Escogimos estos mensajes que te podrían inspirar — tócalos y hazlos tuyos</p>
           <div class="suggestions">
-            <button class="sug" data-msg="Hay cosas que nunca te dije porque no encontré las palabras. Hoy las encontré: gracias por todo lo que sacrificaste sin pedirme que lo notara. Lo noté. Siempre lo noté.">Hay cosas que nunca te dije porque no encontré las palabras…</button>
-            <button class="sug" data-msg="Cuando pienso en lo que es el amor de verdad, pienso en ti. No en una definición — en ti. En tus manos, en tu voz, en todo lo que hiciste sin que nadie te lo pidiera.">Cuando pienso en el amor de verdad, pienso en ti…</button>
-            <button class="sug" data-msg="Me pregunto si alguna vez has sabido lo mucho que te admiro. Eres la persona más fuerte que conozco y la más amorosa al mismo tiempo. Eso no es fácil. Y tú lo haces parecer natural.">Me pregunto si alguna vez has sabido lo mucho que te admiro…</button>
-            <button class="sug" data-msg="No sé si te lo he dicho suficiente. Probablemente no. Pero hoy quiero que lo sepas: eres la razón por la que creo que el mundo puede ser bueno.">No sé si te lo he dicho suficiente. Probablemente no…</button>
+            <button class="sug" data-msg="Hay cosas que nunca te dije porque no encontré las palabras. Hoy las encontré: gracias por todo lo que sacrificaste sin pedirme que lo notara. Lo noté. Siempre lo noté.">Hay cosas que nunca te dije porque no encontré las palabras. Hoy las encontré: gracias por todo lo que sacrificaste sin pedirme que lo notara. Lo noté. Siempre lo noté.</button>
+            <button class="sug" data-msg="Cuando pienso en lo que es el amor de verdad, pienso en ti. No en una definición — en ti. En tus manos, en tu voz, en todo lo que hiciste sin que nadie te lo pidiera.">Cuando pienso en lo que es el amor de verdad, pienso en ti. No en una definición — en ti. En tus manos, en tu voz, en todo lo que hiciste sin que nadie te lo pidiera.</button>
+            <button class="sug" data-msg="Me pregunto si alguna vez has sabido lo mucho que te admiro. Eres la persona más fuerte que conozco y la más amorosa al mismo tiempo. Eso no es fácil. Y tú lo haces parecer natural.">Me pregunto si alguna vez has sabido lo mucho que te admiro. Eres la persona más fuerte que conozco y la más amorosa al mismo tiempo. Eso no es fácil. Y tú lo haces parecer natural.</button>
+            <button class="sug" data-msg="No sé si te lo he dicho suficiente. Probablemente no. Pero hoy quiero que lo sepas: eres la razón por la que creo que el mundo puede ser bueno.">No sé si te lo he dicho suficiente. Probablemente no. Pero hoy quiero que lo sepas: eres la razón por la que creo que el mundo puede ser bueno.</button>
           </div>
         </div>
 
