@@ -293,17 +293,6 @@
       background: var(--gold-light);
     }
 
-    .btn-sticky {
-      position: fixed;
-      bottom: 1.25rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 3rem);
-      max-width: 420px;
-      z-index: 100;
-      box-shadow: 0 4px 20px rgba(45,125,70,.35);
-    }
-
     .btn-edit-green {
       display: block;
       width: 100%;
@@ -986,7 +975,6 @@
 </head>
 
 <body>
-  <button class="btn btn-gold btn-sticky" id="s1-next" style="display:none">Continuar</button>
   <div class="app" id="app">
 
     <!-- ──────────── SCREEN 1 ──────────── -->
@@ -1005,6 +993,8 @@
         <textarea id="user-msg" maxlength="800"
           placeholder="Ej: A veces me pregunto si de verdad sabes cuánto te pienso. No solo cuando pasan cosas grandes, sino en los momentos más simples. En esos también estás."></textarea>
         <div class="char-ct"><span id="char-n">0</span> / 800</div>
+
+        <button class="btn btn-gold" id="s1-next" style="display:none;margin-bottom:1.5rem">Continuar</button>
 
         <div class="suggestions-wrap">
           <p class="suggestions-title">Unas recomendaciones con amor de nuestra parte:</p>
@@ -1235,8 +1225,6 @@
       S.screen = n;
       if (n === 1) {
         updateS1Button();
-      } else {
-        document.getElementById('s1-next').style.display = 'none';
       }
     }
 
