@@ -188,12 +188,15 @@
 
     /* ── Alive note ───────────────────────────────────── */
     .alive-note {
-      font-size: .78rem;
+      font-size: .95rem;
+      font-weight: 600;
       color: var(--green);
-      font-style: italic;
-      margin-top: -.75rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: .02em;
+      margin-top: -.5rem;
+      margin-bottom: 1.75rem;
+      letter-spacing: .01em;
+      border-left: 3px solid var(--green);
+      padding-left: .85rem;
+      line-height: 1.5;
     }
 
     /* ── Suggestions ──────────────────────────────────── */
@@ -927,11 +930,11 @@
           <small>Gala de Reconocimiento 2026</small>
         </div>
 
-        <h1>Si pudieras escribirle algo a tu mamá, o a quien te ha amado como si lo fuera, ¿qué le dirías?</h1>
-        <p class="sub">No tienes que recordar. Tienes que sentir. Escribe lo primero que venga. No hay respuestas incorrectas.</p>
-        <p class="alive-note">Todavía estás a tiempo de decírselo.</p>
+        <h1>Si pudieras escribirle algo a tu mamá — o a quien te ha amado como si lo fuera — ¿qué le dirías?</h1>
+        <p class="sub">Hay personas que esperan años para decir lo que sienten. Algunas nunca lo dicen — no porque no lo sientan, sino porque dieron por sentado que había tiempo. Hoy tienes ese tiempo. No lo desperdicies.</p>
+        <p class="alive-note">Ella todavía puede leerlo. Eso cambia todo.</p>
 
-        <label class="field" for="user-msg">Escríbeselo como si estuviera enfrente de ella</label>
+        <label class="field" for="user-msg">Escríbele lo que llevas tiempo guardando</label>
         <textarea id="user-msg" maxlength="800"
           placeholder="Ej: Te amo. Eres mi mayor bendición y lo mejor que me ha pasado en la vida. Hoy quiero que lo sepas."></textarea>
         <div class="char-ct"><span id="char-n">0</span> / 800</div>
