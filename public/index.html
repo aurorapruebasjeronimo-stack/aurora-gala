@@ -217,11 +217,11 @@
     }
 
     .suggestions-title {
-      font-size: .75rem;
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-weight: 700;
       color: var(--green);
-      margin-bottom: .75rem;
-      line-height: 1.5;
-      letter-spacing: .01em;
+      margin-bottom: .9rem;
+      line-height: 1.4;
     }
 
     .suggestions {
@@ -942,17 +942,17 @@
           <small>Gala de Reconocimiento 2026</small>
         </div>
 
-        <h1>Si pudieras escribirle algo a tu mamá, o a quien te ha amado como si lo fuera, ¿qué le dirías?</h1>
+        <h1>Si pudieras escribirle algo a <strong>tu mamá</strong>, o a quien te ha amado <strong>como si lo fuera</strong>, ¿qué le dirías?</h1>
         <p class="sub">Hay personas que esperan años para decir lo que sienten. Algunas nunca lo dicen, no porque no lo sientan, sino porque dieron por sentado que <span style="color:var(--green);font-weight:600">había tiempo.</span> ¿Y tú? <span style="color:var(--green);font-weight:600">¿Cuánto tiempo llevas esperando el momento perfecto?</span></p>
         <p class="alive-note">Escríbelo como si le hablaras directo al corazón. Solo tú y ella.</p>
-        <p class="hint-persona">Abajo te dejamos algunas frases que te pueden inspirar, o escribe algo propio. Hazlo en primera persona: eso significa hablar como si fueras tú, directo a ella. Como cuando dices <em>te amo</em> o <em>gracias por todo</em>.</p>
+        <p class="hint-persona">Abajo te dejamos algunas frases que te pueden inspirar, o escribe algo propio. Hazlo en primera persona: en vez de decir <em>"ella es muy buena"</em>, di <em>"eres lo mejor que me pasó"</em>. Como si le estuvieras hablando a ella, no de ella.</p>
 
         <textarea id="user-msg" maxlength="800"
           placeholder="Ej: Nunca te lo he dicho como se merece, pero eres la persona que más admiro en este mundo. Gracias por quedarte cuando era difícil quererme."></textarea>
         <div class="char-ct"><span id="char-n">0</span> / 800</div>
 
         <div class="suggestions-wrap">
-          <p class="suggestions-title">Escogimos estos mensajes que te podrían inspirar — tócalos y hazlos tuyos</p>
+          <p class="suggestions-title">Unas recomendaciones con amor de nuestra parte:</p>
           <div class="suggestions">
             <button class="sug" data-msg="Hay cosas que nunca te dije porque no encontré las palabras. Hoy las encontré: gracias por todo lo que sacrificaste sin pedirme que lo notara. Lo noté. Siempre lo noté.">Hay cosas que nunca te dije porque no encontré las palabras. Hoy las encontré: gracias por todo lo que sacrificaste sin pedirme que lo notara. Lo noté. Siempre lo noté.</button>
             <button class="sug" data-msg="Cuando pienso en lo que es el amor de verdad, pienso en ti. No en una definición — en ti. En tus manos, en tu voz, en todo lo que hiciste sin que nadie te lo pidiera.">Cuando pienso en lo que es el amor de verdad, pienso en ti. No en una definición — en ti. En tus manos, en tu voz, en todo lo que hiciste sin que nadie te lo pidiera.</button>
