@@ -891,10 +891,9 @@
       color: #2d7d46;
     }
 
-    #reset-btn {
+    #reset-btn, #inc-btn {
       position: fixed;
       bottom: 8px;
-      left: 10px;
       background: none;
       border: none;
       color: rgba(200,200,200,0.15);
@@ -904,7 +903,9 @@
       padding: 4px 8px;
       line-height: 1;
     }
-    #reset-btn:hover { color: rgba(180,180,180,0.4); }
+    #reset-btn { left: 10px; }
+    #inc-btn { right: 10px; }
+    #reset-btn:hover, #inc-btn:hover { color: rgba(180,180,180,0.4); }
 
     .proj-logo img {
       height: clamp(80px, 12vh, 140px);
@@ -1208,6 +1209,7 @@
   </div>
 
   <button id="reset-btn" title="reset" onclick="if(confirm('¿Volver el contador a cero?')){fetch('/api/reset',{method:'POST'}).then(()=>{document.getElementById('proj-n').textContent='0';document.getElementById('s5-count').textContent='0';})}">·</button>
+  <button id="inc-btn" title="+1" onclick="fetch('/api/increment',{method:'POST'}).then(r=>r.json()).then(d=>{document.getElementById('proj-n').textContent=d.totalSent;})">·</button>
 
   <script>
     // ─── State ────────────────────────────────────────────────
