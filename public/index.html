@@ -994,6 +994,8 @@
           placeholder="Ej: A veces me pregunto si de verdad sabes cuánto te pienso. No solo cuando pasan cosas grandes, sino en los momentos más simples. En esos también estás."></textarea>
         <div class="char-ct"><span id="char-n">0</span> / 800</div>
 
+        <button class="btn btn-gold" id="s1-next" style="display:none;margin-bottom:1.5rem">Continuar</button>
+
         <div class="suggestions-wrap">
           <p class="suggestions-title">Unas recomendaciones con amor de nuestra parte:</p>
           <div class="suggestions">
@@ -1003,8 +1005,6 @@
             <button class="sug" data-msg="Usted sabe que yo no soy de estas cosas. Pero hoy me dieron ganas de decirle que la quiero mucho. Mucho.">Usted sabe que yo no soy de estas cosas. Pero hoy me dieron ganas de decirle que la quiero mucho. Mucho.</button>
           </div>
         </div>
-
-        <button class="btn btn-gold" id="s1-next">Siguiente</button>
       </div>
     </div>
 
@@ -1260,9 +1260,16 @@
     const msgEl = document.getElementById('user-msg');
     const charEl = document.getElementById('char-n');
 
+    const s1btn = document.getElementById('s1-next');
+
+    function updateS1Button() {
+      s1btn.style.display = msgEl.value.trim().length > 0 ? 'block' : 'none';
+    }
+
     msgEl.addEventListener('input', () => {
       charEl.textContent = msgEl.value.length;
       document.querySelectorAll('.sug').forEach(b => b.classList.remove('selected'));
+      updateS1Button();
     });
 
     document.querySelectorAll('.sug').forEach(btn => {
@@ -1272,8 +1279,9 @@
         charEl.textContent = msg.length;
         document.querySelectorAll('.sug').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
+        updateS1Button();
         msgEl.focus();
-        msgEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        s1btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     });
 
