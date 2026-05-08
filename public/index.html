@@ -533,6 +533,19 @@
       margin-top: 2px;
     }
 
+    .counter-note {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: 700;
+      color: var(--green);
+      text-align: center;
+      line-height: 1.5;
+      margin: 1.25rem 0;
+      padding: 1rem 1.1rem;
+      border: 2px solid var(--green-dim);
+      border-radius: 12px;
+      background: rgba(45,125,70,.04);
+    }
+
     /* ── State icon circle ─────────────────────────────── */
     .state-icon {
       width: 60px;
@@ -1043,7 +1056,7 @@
       <div class="inner" style="padding-top:3rem">
         <div class="eyebrow">Un último paso</div>
         <h2>¿A quién le llega esto?</h2>
-        <p class="sub">Hay palabras que se quedan atrapadas en la garganta por años para esa mujer que daría la vida por nosotros. Un <span style="color:var(--green);font-weight:600">te quiero</span> que nunca llegó, un <span style="color:var(--green);font-weight:600">gracias</span> que se dio por entendido, un <span style="color:var(--green);font-weight:600">te admiro</span> que se guardó para después. Hoy, te proponemos cambiar juntos esa historia. Escríbenos el número de esa <strong>mamá</strong> y <span style="color:var(--green);font-weight:600">hagamos que las cosas pasen.</span></p>
+        <p class="sub">Hay palabras que se quedan atrapadas en la garganta por años para <span style="color:var(--green);font-weight:600">esa mujer que daría la vida por nosotros.</span> Un <span style="color:var(--green);font-weight:600">te quiero</span> que nunca llegó, un <span style="color:var(--green);font-weight:600">gracias</span> que se dio por entendido, un <span style="color:var(--green);font-weight:600">te admiro</span> que se guardó para después. Hoy, te proponemos <span style="color:var(--green);font-weight:600">cambiar juntos esa historia.</span> Escríbenos el número de esa <strong>mamá</strong> y hagamos que las cosas pasen.</p>
         <p class="hint-persona" style="margin-bottom:1.25rem">Tu parte es sencilla: escribe su número aquí abajo y toca el botón verde. WhatsApp se va a abrir con el mensaje que tú escribiste. Solo toca <strong style="color:var(--text-dim)">Enviar</strong> desde ahí, sin este paso el mensaje no llega.</p>
 
         <div class="phone-wrap">
@@ -1069,6 +1082,9 @@
           </svg>
           Abrir en WhatsApp y enviar
         </button>
+
+        <div class="counter-note">Nadie va a ver tu mensaje. Solo suma al contador y motiva a más personas a hacer lo mismo que tú.</div>
+
         <button class="btn btn-ghost" id="s4-cancel">Cancelar y guardar solo para mí</button>
       </div>
     </div>
