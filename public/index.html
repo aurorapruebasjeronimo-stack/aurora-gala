@@ -211,47 +211,39 @@
 
     .suggestions {
       display: flex;
-      gap: .75rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: .5rem;
-      margin: 0 -1.5rem;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      flex-direction: column;
+      gap: .6rem;
     }
 
-    .suggestions::-webkit-scrollbar { display: none; }
-
     .sug {
-      background: rgba(45, 125, 70, .05);
-      border: 1px solid rgba(45, 125, 70, .2);
+      width: 100%;
+      background: rgba(45, 125, 70, .04);
+      border: 1px solid rgba(45, 125, 70, .18);
       border-radius: 10px;
       padding: 1rem 1.1rem;
       text-align: left;
       font-family: 'Raleway', sans-serif;
-      font-size: .84rem;
+      font-size: .85rem;
       color: var(--text-dim);
       cursor: pointer;
-      line-height: 1.65;
+      line-height: 1.7;
       transition: all .2s;
       font-style: italic;
-      flex: 0 0 78vw;
-      max-width: 320px;
-      scroll-snap-align: start;
       white-space: normal;
+      word-break: break-word;
     }
 
     .sug:hover {
-      background: rgba(45, 125, 70, .1);
+      background: rgba(45, 125, 70, .09);
       border-color: var(--green);
       color: var(--text);
     }
 
     .sug.selected {
-      background: rgba(45, 125, 70, .1);
+      background: rgba(45, 125, 70, .09);
       border-color: var(--green);
       color: var(--green);
+      font-weight: 500;
     }
 
     /* ── Buttons ───────────────────────────────────────── */
