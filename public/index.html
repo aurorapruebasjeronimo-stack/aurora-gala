@@ -1129,6 +1129,7 @@
   <!-- Admin trigger -->
   <button id="admin-trigger">⊹ Admin</button>
 
+
   <!-- Admin overlay -->
   <div class="overlay" id="admin-overlay">
 
@@ -1209,7 +1210,7 @@
     <div id="proj-phrase">¿Aún no has enviado el tuyo?</div>
   </div>
 
-  <button id="reset-btn" title="reset" onclick="if(confirm('¿Volver el contador a cero?')){fetch('/api/reset',{method:'POST'}).then(()=>location.reload())}">·</button>
+  <button id="reset-btn" title="reset" onclick="if(confirm('¿Volver el contador a cero?')){fetch('/api/reset',{method:'POST'}).then(()=>{document.getElementById('proj-n').textContent='0';document.getElementById('s5-count').textContent='0';})}">·</button>
 
   <script>
     // ─── State ────────────────────────────────────────────────
@@ -1404,15 +1405,11 @@
 
     // ─── Admin ────────────────────────────────────────────────
     document.getElementById('admin-trigger').addEventListener('click', () => {
-      document.getElementById('admin-overlay').classList.add('show');
-      if (S.authed) {
-        openDash();
-      } else {
-        document.getElementById('admin-auth').style.display = 'flex';
-        document.getElementById('admin-dash').style.display = 'none';
-        document.getElementById('auth-pwd').value = '';
-        document.getElementById('auth-err').textContent = '';
-      }
+      document.getElementById('proj-overlay').classList.add('show');
+      updateProj();
+      projPoll = setInterval(updateProj, 5000);
+      phraseIdx = 0;
+      projCycle = setInterval(cyclePhrase, 6000);
     });
 
     function tryAuth() {
