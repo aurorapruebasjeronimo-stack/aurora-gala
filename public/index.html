@@ -293,21 +293,32 @@
       background: var(--gold-light);
     }
 
-    .btn-edit {
+    .btn-edit-green {
       display: block;
       width: 100%;
       margin-top: .75rem;
-      background: none;
+      background: #adc045;
       border: none;
-      color: var(--text-muted);
+      border-radius: 14px;
+      color: #fff;
       font-family: 'Raleway', sans-serif;
-      font-size: .9rem;
-      font-weight: 500;
-      text-decoration: underline;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      padding: .4rem 0;
+      padding: 1rem;
+      letter-spacing: .01em;
+      transition: background .18s;
     }
-    .btn-edit:hover { color: var(--text-dim); }
+    .btn-edit-green:hover { background: #9aac38; }
+    .s3-green {
+      color: var(--green);
+      font-weight: 700;
+    }
+    #screen-3 h2 {
+      font-size: clamp(1.35rem, 4vw, 1.75rem);
+      font-weight: 400;
+      color: var(--text);
+    }
 
     .btn-wa {
       background: var(--wa);
@@ -1015,13 +1026,12 @@
     <div class="screen" id="screen-3">
       <div class="inner">
         <div class="eyebrow">Hay cosas que merecen ser dichas</div>
-        <h2>Estás a un paso de hacer algo que ella nunca va a olvidar. ¿Aceptas hacer una pequeña locura que toque fibras?</h2>
-        <p class="sub">Solo danos su número. El resto lo hacemos nosotros.</p>
+        <h2>Estás a un paso de hacer algo que ella <span class="s3-green">nunca va a olvidar.</span> ¿Aceptas hacer una <span class="s3-green">pequeña locura</span> que toque fibras?</h2>
 
         <div class="msg-card" id="s3-preview"></div>
 
-        <button class="btn btn-gold" id="s3-send">Sí, quiero que llegue</button>
-        <button class="btn-edit" id="s3-edit">Editar mensaje</button>
+        <button class="btn btn-gold" id="s3-send">Continuar</button>
+        <button class="btn-edit-green" id="s3-edit">Quiero corregir este mensaje</button>
       </div>
     </div>
 
